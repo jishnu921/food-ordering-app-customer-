@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".SignInPage">
+
+    <LinearLayout
+        android:id="@+id/linearLayoutLogin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:layout_marginTop="10dp">
+
+        <ImageView
+            android:layout_width="125dp"
+            android:layout_height="125dp"
+            android:src="@drawable/logo"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Let's Eat"
+            android:gravity="center"
+            android:fontFamily="@font/yeonsungregular"
+            android:textSize="50dp"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="Deliver Favorite Food"
+            android:gravity="center"
+            android:fontFamily="@font/latobold"
+            android:textSize="15dp"
+            android:textColor="@color/lightGreen"/>
+        <TextView
+            android:layout_marginTop="15dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Sign up Here"
+            android:gravity="center"
+            android:textColor="@color/lightGreen"
+            android:textSize="25dp"
+            android:fontFamily="@font/yeonsungregular"/>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="7dp"
+            android:layout_marginBottom="3dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp">
+
+            <EditText
+                android:padding="15sp"
+                android:background="@drawable/rectanglebutton"
+                android:id="@+id/UserNameSignPage"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/usericon"
+                android:drawableStart="@drawable/usericon"
+                android:drawablePadding="10dp"
+                android:hint="Name"
+                android:textSize="20dp"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="3dp"
+            android:layout_marginBottom="3dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp">
+
+            <EditText
+                android:padding="15sp"
+                android:background="@drawable/rectanglebutton"
+                android:id="@+id/EmailSignInPage"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/emailicon"
+                android:drawableStart="@drawable/emailicon"
+                android:drawablePadding="10dp"
+                android:hint="Email or Phone Number"
+                android:textSize="20dp"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:passwordToggleEnabled="true"
+            android:layout_marginTop="3dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp">
+
+            <EditText
+                android:padding="15sp"
+                android:background="@drawable/rectanglebutton"
+                android:id="@+id/PasswordSignInPage"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textPassword"
+                android:drawableLeft="@drawable/passwordicon"
+                android:drawableStart="@drawable/passwordicon"
+                android:drawablePadding="10dp"
+                android:hint="Password"
+                android:textSize="20dp"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <TextView
+            android:layout_marginTop="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Or"
+            android:gravity="center"
+            android:textSize="15dp"
+            android:fontFamily="@font/latobold"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Sign Up With"
+            android:gravity="center"
+            android:fontFamily="@font/yeonsungregular"
+            android:textSize="30sp"/>
+        <LinearLayout
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center">
+            <com.google.android.material.button.MaterialButton
+                android:layout_width="152dp"
+                android:layout_height="57dp"
+                android:layout_marginRight="15dp"
+                android:drawableLeft="@drawable/facebook_3_1"
+                android:backgroundTint="@color/white"
+                app:cornerRadius="15dp"
+                android:text="Facebook"
+                android:textSize="15dp"
+                android:textColor="@color/black"/>
+            <com.google.android.material.button.MaterialButton
+                android:layout_width="152dp"
+                android:layout_height="57dp"
+                android:layout_marginLeft="15dp"
+                android:drawableLeft="@drawable/google_icon_2"
+                android:backgroundTint="@color/white"
+                app:cornerRadius="15dp"
+                android:text="Google"
+                android:textColor="@color/black"/>
+
+        </LinearLayout>
+
+        <com.google.android.material.button.MaterialButton
+            android:layout_marginTop="10dp"
+            android:layout_width="152dp"
+            android:layout_height="70dp"
+            app:cornerRadius="15dp"
+            android:backgroundTint="@color/GreenButton"
+            android:text="Create Account"
+            android:fontFamily="@font/yeonsungregular"
+            android:textSize="15dp"/>
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/GoLoginPage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:gravity="center"
+        android:text="Already Have An Account?"
+        android:textColor="@color/lightGreen"/>
+
+
+</RelativeLayout>
