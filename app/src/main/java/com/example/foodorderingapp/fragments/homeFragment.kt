@@ -1,10 +1,12 @@
 package com.example.foodorderingapp.fragments
 
+import android.health.connect.datatypes.units.Length
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import com.denzcoskun.imageslider.constants.ScaleTypes
 import com.denzcoskun.imageslider.interfaces.ItemClickListener
 import com.denzcoskun.imageslider.models.SlideModel
@@ -56,28 +58,21 @@ class homeFragment : Fragment() {
         val imageSlider = binding.imageSlider
         imageSlider.setImageList(imageList)
         imageSlider.setImageList(imageList,ScaleTypes.FIT)
-        imageSlider.setOnClickListener(object:ItemClickListener{
+
+        imageSlider.setItemClickListener(object : ItemClickListener{
+            override fun doubleClick(position: Int) {
+                TODO("Not yet implemented")
+            }
+
+            override fun onItemSelected(position: Int) {
+                val itemPostion = position
+                Toast.makeText(requireContext(),""+itemPostion,Toast.LENGTH_SHORT).show()
+            }
 
         })
     }
 
     companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment homeFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            homeFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
     }
 }
+
