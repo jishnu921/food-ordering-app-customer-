@@ -7,10 +7,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.denzcoskun.imageslider.constants.ScaleTypes
 import com.denzcoskun.imageslider.interfaces.ItemClickListener
 import com.denzcoskun.imageslider.models.SlideModel
 import com.example.foodorderingapp.R
+import com.example.foodorderingapp.adapters.populearAdapter
 import com.example.foodorderingapp.databinding.FragmentHomeBinding
 
 // TODO: Rename parameter arguments, choose names that match
@@ -18,11 +20,6 @@ import com.example.foodorderingapp.databinding.FragmentHomeBinding
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
 
-/**
- * A simple [Fragment] subclass.
- * Use the [homeFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class homeFragment : Fragment() {
     private lateinit var binding:FragmentHomeBinding
     // TODO: Rename and change types of parameters
@@ -70,6 +67,12 @@ class homeFragment : Fragment() {
             }
 
         })
+        val PopularFoodName = listOf("burger","sandwich","fry","cake")
+        val PopulearFoodPrice = listOf("Rs110","Rs60","Rs65","Rs60")
+        val PopulearFoodImage = listOf(R.drawable.burger, R.drawable.sandwich, R.drawable.frys, R.drawable.cake)
+        val adapter = populearAdapter(PopularFoodName,PopulearFoodPrice,PopulearFoodImage)
+        binding.RecyclerViewHomeFragment.layoutManager = LinearLayoutManager(requireContext())
+        binding.RecyclerViewHomeFragment.adapter = adapter
     }
 
     companion object {
