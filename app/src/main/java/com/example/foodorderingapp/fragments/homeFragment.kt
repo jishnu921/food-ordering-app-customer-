@@ -57,6 +57,10 @@ class homeFragment : Fragment() {
             }
 
         })
+        binding.ViewMenuHomeFragment.setOnClickListener(){
+            val bottomSlideMenu = BottomSlideMenu()
+            bottomSlideMenu.show(parentFragmentManager,"Test")
+        }
         val PopularFoodName = listOf("burger","sandwich","fry","cake")
         val PopulearFoodPrice = listOf("Rs110","Rs60","Rs65","Rs60")
         val PopulearFoodImage = listOf(R.drawable.burger, R.drawable.sandwich, R.drawable.frys, R.drawable.cake)

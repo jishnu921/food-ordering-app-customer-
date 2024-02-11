@@ -34,9 +34,6 @@ class cartAdapter(private val CartItemName: MutableList<String>,
                 quantityOfItem[adapterPosition]--
                 binding.quantityCartItem.text = quantityOfItem[adapterPosition].toString()
             }
-            else{
-                deleteQuantity()
-            }
         }
         fun deleteQuantity(){
             CartItemImage.removeAt(adapterPosition)
