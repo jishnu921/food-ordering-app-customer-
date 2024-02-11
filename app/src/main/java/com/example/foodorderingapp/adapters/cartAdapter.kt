@@ -15,7 +15,6 @@ class cartAdapter(private val CartItemName: MutableList<String>,
     inner class MyCartViewHolder(private val binding: CartItemLayoutBinding):RecyclerView.ViewHolder(binding.root){
         private val Image = binding.CartItemImageView
         fun bind(position: Int) {
-            binding.apply {
                 binding.CartItemNameTextView.text = CartItemName[position]
                 binding.CartItemPriceTextView.text = CartItemPrice[position]
                 binding.quantityCartItem.text = quantityOfItem[position].toString()
@@ -27,8 +26,7 @@ class cartAdapter(private val CartItemName: MutableList<String>,
                     addQuantity()
                 }
                 binding.DeleteItemCart.setOnClickListener() {
-                        deleteQuantity(adapterPosition)
-                }
+                        deleteQuantity()
             }
         }
         fun reduseQuantity(){
@@ -37,17 +35,15 @@ class cartAdapter(private val CartItemName: MutableList<String>,
                 binding.quantityCartItem.text = quantityOfItem[adapterPosition].toString()
             }
             else{
-                val itemPostion = adapterPosition
-                if (itemPostion != RecyclerView.NO_POSITION)
-                deleteQuantity(itemPostion)
+                deleteQuantity()
             }
         }
-        fun deleteQuantity(Position: Int){
-            CartItemImage.removeAt(Position)
-            CartItemName.removeAt(Position)
-            CartItemPrice.removeAt(Position)
-            notifyItemRemoved(Position)
-            notifyItemChanged(Position,CartItemName.size)
+        fun deleteQuantity(){
+            CartItemImage.removeAt(adapterPosition)
+            CartItemName.removeAt(adapterPosition)
+            CartItemPrice.removeAt(adapterPosition)
+            notifyItemRemoved(adapterPosition)
+            notifyItemChanged(adapterPosition,CartItemName.size)
         }
         fun addQuantity(){
             if (quantityOfItem[adapterPosition]<10)
