@@ -5,39 +5,82 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.widget.SearchView
+import androidx.appcompat.widget.SearchView.OnQueryTextListener
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.foodorderingapp.R
+import com.example.foodorderingapp.adapters.populearAdapter
+import com.example.foodorderingapp.databinding.FragmentSearchBinding
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [searchFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class searchFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
-
+    lateinit var binding:FragmentSearchBinding
+    val filteredMenuName = mutableListOf<String>()
+    val filteredMenuPrice = mutableListOf<String>()
+    val filterMenuImage = mutableListOf<Int>()
+    val SearchFoodName = listOf("burger","sandwich","fry","cake","burger","sandwich","fry","cake","cake")
+    val SearchFoodPrice = listOf("Rs110","Rs60","Rs65","Rs60","Rs110","Rs60","Rs65","Rs60","80")
+    val SearchFoodImage = listOf(
+        R.drawable.burger, R.drawable.sandwich, R.drawable.frys, R.drawable.cake,
+        R.drawable.burger, R.drawable.sandwich, R.drawable.frys, R.drawable.cake,R.drawable.cake)
+    val adapter = populearAdapter(filteredMenuName,filteredMenuPrice,filterMenuImage)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_search, container, false)
+        binding = FragmentSearchBinding.inflate(inflater,container,false)
+
+        binding.reyclerViewSearchFragment.layoutManager = LinearLayoutManager(requireContext())
+        binding.reyclerViewSearchFragment.adapter=adapter
+
+        searnchPanel()
+
+        showallMenu()
+        return binding.root
     }
 
+    private fun showallMenu() {
+        filteredMenuName.clear()
+        filterMenuImage.clear()
+        filteredMenuPrice.clear()
+
+        filteredMenuName.addAll(SearchFoodName)
+        filteredMenuPrice.addAll(SearchFoodPrice)
+        filterMenuImage.addAll(SearchFoodImage)
+
+        adapter.notifyDataSetChanged()
+    }
+
+    fun searnchPanel(){
+        binding.searchViewSearchFragment.setOnQueryTextListener(object : SearchView.OnQueryTextListener{
+            override fun onQueryTextSubmit(query: String): Boolean {
+                filterMenuitem(query)
+                return true
+            }
+
+            override fun onQueryTextChange(newText: String): Boolean {
+                filterMenuitem(newText)
+                return true
+            }
+        })
+    }
+    fun filterMenuitem(query: String) {
+        filteredMenuName.clear()
+        filterMenuImage.clear()
+        filteredMenuPrice.clear()
+
+        SearchFoodName.forEachIndexed{index, foodName ->
+            if (foodName.contains(query,ignoreCase = true)){
+                filteredMenuName.add(foodName)
+                filteredMenuPrice.add(SearchFoodPrice[index])
+                filterMenuImage.add(SearchFoodImage[index])
+            }
+        }
+        adapter.notifyDataSetChanged()
+    }
     companion object {
 
     }

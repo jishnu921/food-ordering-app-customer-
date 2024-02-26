@@ -5,9 +5,9 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.foodorderingapp.databinding.PopulearitemlayoutBinding
 
-class populearAdapter(private val PopulearItemName:List<String>,
-                      private  val PopulearItemPrice:List<String>,
-                      private val PopulearItemImage: List<Int> )
+class populearAdapter(private val PopulearItemName:MutableList<String>,
+                      private  val PopulearItemPrice:MutableList<String>,
+                      private val PopulearItemImage: MutableList<Int> )
     : RecyclerView.Adapter<populearAdapter.populearViewHolder>(){
     class populearViewHolder(private val binnding:PopulearitemlayoutBinding) : RecyclerView.ViewHolder(binnding.root) {
 

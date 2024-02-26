@@ -1,5 +1,6 @@
 package com.example.foodorderingapp.fragments
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -8,7 +9,9 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.foodorderingapp.R
 import com.example.foodorderingapp.adapters.cartAdapter
+import com.example.foodorderingapp.buy_details_filling
 import com.example.foodorderingapp.databinding.FragmentCartfragmentBinding
+import com.example.foodorderingapp.locationSelection
 
 
 class cartfragment : Fragment() {
@@ -30,15 +33,29 @@ class cartfragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val CartFoodName = listOf("burger","sandwich","fry","cake","burger","sandwich","fry","cake")
-        val CartFoodPrice = listOf("Rs110","Rs60","Rs65","Rs60","Rs110","Rs60","Rs65","Rs60")
-        val CartFoodImage = listOf(R.drawable.burger, R.drawable.sandwich, R.drawable.frys, R.drawable.cake,R.drawable.burger, R.drawable.sandwich, R.drawable.frys, R.drawable.cake)
-        val adapter = cartAdapter(ArrayList(CartFoodName)
-            ,ArrayList(CartFoodPrice),
+        val CartFoodName =
+            listOf("burger", "sandwich", "fry", "cake", "burger", "sandwich", "fry", "cake")
+        val CartFoodPrice = listOf("Rs110", "Rs60", "Rs65", "Rs60", "Rs110", "Rs60", "Rs65", "Rs60")
+        val CartFoodImage = listOf(
+            R.drawable.burger,
+            R.drawable.sandwich,
+            R.drawable.frys,
+            R.drawable.cake,
+            R.drawable.burger,
+            R.drawable.sandwich,
+            R.drawable.frys,
+            R.drawable.cake
+        )
+        val adapter = cartAdapter(
+            ArrayList(CartFoodName), ArrayList(CartFoodPrice),
             ArrayList(CartFoodImage)
         )
         binding.RecyclerViewCardFragment.layoutManager = LinearLayoutManager(requireContext())
-        binding.RecyclerViewCardFragment.adapter =adapter
+        binding.RecyclerViewCardFragment.adapter = adapter
+
+        binding.buyCartFragment.setOnClickListener() {
+            startActivity(Intent(context, buy_details_filling::class.java))
+        }
     }
     companion object {
     }

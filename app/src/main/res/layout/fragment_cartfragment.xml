@@ -16,7 +16,7 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginBottom="5dp"
-            app:layout_constraintBottom_toTopOf="@+id/button"
+            app:layout_constraintBottom_toTopOf="@+id/buyCartFragment"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -24,7 +24,7 @@
         <TextView
             android:elevation="40dp"
             android:background="@drawable/rectanglebutton"
-            android:id="@+id/button"
+            android:id="@+id/buyCartFragment"
             android:layout_width="0dp"
             android:layout_height="50dp"
             android:textColor="@color/GreenButton"

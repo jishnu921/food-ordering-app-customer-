@@ -17,13 +17,13 @@
         android:fontFamily="@font/latobold"
         android:text="Explore Your Favorite Food"
         android:textSize="24sp"
-        app:layout_constraintEnd_toStartOf="@+id/imageButton"
+        app:layout_constraintEnd_toStartOf="@+id/OrderStatusButton"
         app:layout_constraintHorizontal_bias="0.6"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageButton
-        android:id="@+id/imageButton"
+        android:id="@+id/OrderStatusButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/bell"

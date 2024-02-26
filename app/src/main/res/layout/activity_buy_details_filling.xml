@@ -1,13 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".fragments.userFragment">
+    tools:context=".buy_details_filling"
+    android:orientation="vertical">
 
+    <ImageButton
+        android:id="@+id/backButtonButDetails"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:background="@drawable/back_orenge"
+        android:layout_margin="10dp"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/yeonsungregular"
+        android:textColor="@color/GreenButton"
+        android:textSize="30dp"
+        android:text="purchase details"
+        android:gravity="center"/>
     <LinearLayout
-        android:elevation="20dp"
         android:gravity="center"
         android:layout_width="match_parent"
         android:layout_height="56dp"
@@ -26,6 +40,8 @@
             android:textSize="30dp"/>
 
         <EditText
+            android:textColor="#858484"
+            android:text="Abjeet"
             android:padding="7dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -34,7 +50,6 @@
     </LinearLayout>
 
     <LinearLayout
-        android:elevation="20dp"
         android:paddingStart="16dp"
         android:background="@drawable/profile_box_layout"
         android:paddingEnd="16dp"
@@ -52,6 +67,7 @@
             android:textSize="30dp"/>
 
         <EditText
+            android:textColor="#858484"
             android:padding="7dp"
             android:text="Lorem ipsum is placeholder text commonly used in the graphic,print, and publishing industries for previewing layouts and visual "
             android:inputType="textMultiLine"
@@ -61,34 +77,6 @@
     </LinearLayout>
 
     <LinearLayout
-        android:elevation="20dp"
-        android:paddingStart="16dp"
-        android:background="@drawable/profile_box_layout"
-        android:paddingEnd="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginEnd="10dp"
-        android:layout_width="match_parent"
-        android:layout_height="56dp"
-        android:gravity="center">
-        <TextView
-            android:padding="7dp"
-            android:layout_width="110dp"
-            android:layout_height="wrap_content"
-            android:text="Email"
-            android:fontFamily="@font/yeonsungregular"
-            android:textSize="30dp"/>
-
-        <EditText
-            android:padding="7dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="textEmailAddress"
-            android:background="@android:color/transparent" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:elevation="20dp"
         android:paddingStart="16dp"
         android:background="@drawable/profile_box_layout"
         android:paddingEnd="16dp"
@@ -107,6 +95,8 @@
             android:textSize="30dp"/>
 
         <EditText
+            android:textColor="#858484"
+            android:text="9353266834"
             android:padding="7dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -114,4 +104,70 @@
             android:background="@android:color/transparent" />
     </LinearLayout>
 
+    <LinearLayout
+        android:paddingStart="16dp"
+        android:background="@drawable/profile_box_layout"
+        android:paddingEnd="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:gravity="center">
+        <TextView
+            android:textColor="#656565"
+            android:padding="7dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Payment Method"
+            android:fontFamily="@font/yeonsungregular"
+            android:textSize="20dp"/>
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:src="@drawable/cashondelivery"/>
+    </LinearLayout>
+    <LinearLayout
+        android:paddingStart="16dp"
+        android:background="@drawable/profile_box_layout"
+        android:paddingEnd="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:gravity="center">
+        <TextView
+            android:textColor="#656565"
+            android:padding="7dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Total Amount"
+            android:textSize="20dp"
+            android:fontFamily="@font/yeonsungregular" />
+        <TextView
+            android:gravity="end|center"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="Rs100"
+            android:textColor="@color/GreenButton"
+            android:fontFamily="@font/latobold"
+            android:textSize="25dp"
+            android:inputType="none"/>
+    </LinearLayout>
+    <TextView
+        android:layout_marginTop="40dp"
+        android:elevation="10dp"
+        android:background="@drawable/rectanglebutton"
+        android:id="@+id/placeOrderButton"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:textColor="@color/GreenButton"
+        android:fontFamily="@font/yeonsungregular"
+        android:textSize="20dp"
+        android:backgroundTint="@color/white"
+        android:gravity="center"
+        android:layout_marginRight="10dp"
+        android:layout_marginLeft="10dp"
+        android:text="Place My Order"/>
 </LinearLayout>
