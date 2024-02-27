@@ -1,5 +1,6 @@
 package com.example.foodorderingapp.fragments
 
+import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -22,7 +23,7 @@ class searchFragment : Fragment() {
     val SearchFoodImage = listOf(
         R.drawable.burger, R.drawable.sandwich, R.drawable.frys, R.drawable.cake,
         R.drawable.burger, R.drawable.sandwich, R.drawable.frys, R.drawable.cake,R.drawable.cake)
-    val adapter = populearAdapter(filteredMenuName,filteredMenuPrice,filterMenuImage)
+    val adapter = populearAdapter(filteredMenuName,filteredMenuPrice,filterMenuImage,requireContext())
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }

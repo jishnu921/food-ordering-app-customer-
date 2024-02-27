@@ -1,13 +1,17 @@
 package com.example.foodorderingapp.adapters
 
+import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.example.foodorderingapp.FoodDetails
 import com.example.foodorderingapp.databinding.PopulearitemlayoutBinding
 
 class populearAdapter(private val PopulearItemName:MutableList<String>,
                       private  val PopulearItemPrice:MutableList<String>,
-                      private val PopulearItemImage: MutableList<Int> )
+                      private val PopulearItemImage: MutableList<Int>,
+                      private val requireCotext:Context)
     : RecyclerView.Adapter<populearAdapter.populearViewHolder>(){
     class populearViewHolder(private val binnding:PopulearitemlayoutBinding) : RecyclerView.ViewHolder(binnding.root) {
 
@@ -33,5 +37,12 @@ class populearAdapter(private val PopulearItemName:MutableList<String>,
         val PopulearItemPrice = PopulearItemPrice[position]
         val PopulearItemImage = PopulearItemImage[position]
         holder.bind(PopulearItemNames,PopulearItemPrice,PopulearItemImage)
+
+        holder.itemView.setOnClickListener() {
+            val intent = Intent(requireCotext, FoodDetails::class.java)
+            intent.putExtra("FoodName", PopulearItemNames)
+            intent.putExtra("FoodImage", PopulearItemImage)
+            requireCotext.startActivity(intent)
+        }
     }
 }
