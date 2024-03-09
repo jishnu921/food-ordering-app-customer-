@@ -39,6 +39,10 @@ class historyFragment : Fragment() {
         val adapter = historyAdapter(PopularFoodName as MutableList<String>,PopulearFoodPrice as MutableList<String>,PopulearFoodImage as MutableList<Int>)
         binding.RecyclierHistoryFragment.layoutManager = LinearLayoutManager(requireContext())
         binding.RecyclierHistoryFragment.adapter = adapter
+
+        binding.currentBuyFoodImage.setImageResource(R.drawable.burger)
+        binding.CurrentFoodPrice.text = "Rs100"
+        binding.CurrentBuyFoodName.text = "Burger"
     }
 
     companion object {

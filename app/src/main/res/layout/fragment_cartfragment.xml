@@ -1,42 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical"
     tools:context=".fragments.cartfragment">
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/white">
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/RecyclerViewCardFragment"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_margin="10dp"
+                app:layout_constraintBottom_toTopOf="@+id/buyCartFragment"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:layout_editor_absoluteX="10dp" />
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:padding="10dp">
+            <TextView
+                android:id="@+id/buyCartFragment"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@drawable/rectanglebutton"
+                android:backgroundTint="@color/white"
+                android:elevation="10dp"
+                android:fontFamily="@font/yeonsungregular"
+                android:gravity="center"
+                android:layout_margin="10dp"
+                android:text="Proceed"
+                android:textColor="@color/GreenButton"
+                android:textSize="20dp"
+                app:layout_constraintBottom_toBottomOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/RecyclerViewCardFragment"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_marginBottom="5dp"
-            app:layout_constraintBottom_toTopOf="@+id/buyCartFragment"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:elevation="40dp"
-            android:background="@drawable/rectanglebutton"
-            android:id="@+id/buyCartFragment"
-            android:layout_width="0dp"
-            android:layout_height="50dp"
-            android:textColor="@color/GreenButton"
-            android:fontFamily="@font/yeonsungregular"
-            android:textSize="20dp"
-            android:backgroundTint="@color/white"
-            android:gravity="center"
-            android:text="Proceed"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-</FrameLayout>
+</LinearLayout>

@@ -151,12 +151,11 @@
 
         </LinearLayout>
 
-        <com.google.android.material.button.MaterialButton
+        <androidx.appcompat.widget.AppCompatButton
             android:layout_marginTop="10dp"
             android:layout_width="152dp"
             android:layout_height="70dp"
-            app:cornerRadius="15dp"
-            android:backgroundTint="@color/GreenButton"
+            android:background="@drawable/button_color"
             android:text="Create Account"
             android:fontFamily="@font/yeonsungregular"
             android:textSize="15dp"/>
