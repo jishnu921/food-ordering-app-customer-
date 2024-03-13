@@ -140,6 +140,7 @@
                 android:textSize="15dp"
                 android:textColor="@color/black"/>
             <com.google.android.material.button.MaterialButton
+                android:id="@+id/GoogleSignIn"
                 android:layout_width="152dp"
                 android:layout_height="57dp"
                 android:layout_marginLeft="15dp"
@@ -152,6 +153,7 @@
         </LinearLayout>
 
         <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/CreateButton"
             android:layout_marginTop="10dp"
             android:layout_width="152dp"
             android:layout_height="70dp"

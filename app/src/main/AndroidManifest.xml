@@ -25,7 +25,7 @@
             android:name=".SignInPage"
             android:exported="false" />
         <activity
-            android:name=".LoginPage"
+            android:name=".MainActivity"
             android:exported="false" />
         <activity
             android:name=".startScreen"
@@ -34,7 +34,7 @@
             android:name=".splashScreen"
             android:exported="true" />
         <activity
-            android:name=".MainActivity"
+            android:name=".LoginPage"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
