@@ -33,10 +33,10 @@ class searchFragment : Fragment() {
     ): View? {
         binding = FragmentSearchBinding.inflate(inflater,container,false)
 
-        adapter = populearAdapter(filteredMenuName,filteredMenuPrice,filterMenuImage,requireContext())
+        /*adapter = populearAdapter(filteredMenuName,filteredMenuPrice,filterMenuImage,requireContext())
 
         binding.reyclerViewSearchFragment.layoutManager = LinearLayoutManager(requireContext())
-        binding.reyclerViewSearchFragment.adapter=adapter
+        binding.reyclerViewSearchFragment.adapter=adapter*/
 
         searnchPanel()
 

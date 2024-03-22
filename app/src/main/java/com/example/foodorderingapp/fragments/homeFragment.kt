@@ -64,9 +64,9 @@ class homeFragment : Fragment() {
         val PopularFoodName = listOf("burger","sandwich","fry","cake")
         val PopulearFoodPrice = listOf("Rs110","Rs60","Rs65","Rs60")
         val PopulearFoodImage = listOf(R.drawable.burger, R.drawable.sandwich, R.drawable.frys, R.drawable.cake)
-        val adapter = populearAdapter(PopularFoodName as MutableList<String>,PopulearFoodPrice as MutableList<String>,PopulearFoodImage as MutableList<Int>,requireContext())
+        /*val adapter = populearAdapter(PopularFoodName as MutableList<String>,PopulearFoodPrice as MutableList<String>,PopulearFoodImage as MutableList<Int>,requireContext())
         binding.RecyclerViewHomeFragment.layoutManager = LinearLayoutManager(requireContext())
-        binding.RecyclerViewHomeFragment.adapter = adapter
+        binding.RecyclerViewHomeFragment.adapter = adapter*/
     }
 
     companion object {

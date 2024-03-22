@@ -55,4 +55,6 @@ dependencies {
 
     //image slider
     implementation ("com.github.denzcoskun:ImageSlideshow:0.1.2")
+    //glide
+    implementation ("com.github.bumptech.glide:glide:4.16.0")
 }

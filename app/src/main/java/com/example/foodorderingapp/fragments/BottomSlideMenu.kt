@@ -10,11 +10,18 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.foodorderingapp.R
 import com.example.foodorderingapp.adapters.populearAdapter
 import com.example.foodorderingapp.databinding.FragmentBottomSlideMenuBinding
+import com.example.foodorderingapp.datamodel.menuitemModel
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 
 class BottomSlideMenu : BottomSheetDialogFragment() {
     lateinit var binding:FragmentBottomSlideMenuBinding
-
+    private lateinit var database: FirebaseDatabase
+    private lateinit var menuItems:MutableList<menuitemModel>
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
@@ -31,13 +38,34 @@ class BottomSlideMenu : BottomSheetDialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val PopularFoodName = listOf("burger","sandwich","fry","cake","burger","sandwich","fry","cake")
-        val PopulearFoodPrice = listOf("Rs110","Rs60","Rs65","Rs60","Rs110","Rs60","Rs65","Rs60")
-        val PopulearFoodImage = listOf(R.drawable.burger, R.drawable.sandwich, R.drawable.frys, R.drawable.cake,R.drawable.burger, R.drawable.sandwich, R.drawable.frys, R.drawable.cake)
-        val adapter = populearAdapter(PopularFoodName as MutableList<String>,PopulearFoodPrice as MutableList<String>,PopulearFoodImage as MutableList<Int>,requireContext())
+        retriveMenuItem()
+    }
+
+    private fun retriveMenuItem() {
+        database = FirebaseDatabase.getInstance()
+        val foodRef: DatabaseReference = database.reference.child("menu")
+        menuItems = mutableListOf()
+
+        foodRef.addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                for (foodSnapshot in snapshot.children) {
+                    val menuItem = foodSnapshot.getValue(menuitemModel::class.java)
+                    menuItem?.let { menuItems.add(it) }
+                }
+                //set data to adapter
+                setAdapter()
+            }
+            override fun onCancelled(error: DatabaseError) {
+
+            }
+        })
+    }
+    private fun setAdapter() {
+        val adapter = populearAdapter(menuItems,requireContext())
         binding.reyclerViewBottomSlid.layoutManager = LinearLayoutManager(requireContext())
         binding.reyclerViewBottomSlid.adapter = adapter
     }
+
     companion object {
     }
 }

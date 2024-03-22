@@ -13,14 +13,18 @@ class FoodDetails : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
-        val FoodName = intent.getStringExtra("FoodName")
-        val FoodImage = intent.getIntExtra("FoodImage",0)
-
-        binding.foodImage.setImageResource(FoodImage)
+        val FoodName = intent.getStringExtra("foodName")
+        val FoodPrice = intent.getStringExtra("foodPrice")
+        val foodDescription = intent.getStringExtra("foodDescription")
+        val foodIngredent = intent.getStringExtra("foodIngredent")
+        //setting food details
         binding.foodname.text = FoodName
+        binding.FoodDescription.text = foodDescription
+        binding.Ingredients.text = foodIngredent
 
         binding.backButtonFoodDetails.setOnClickListener(){
             finish()
         }
     }
+
 }

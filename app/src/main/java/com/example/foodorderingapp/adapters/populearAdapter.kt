@@ -2,24 +2,23 @@ package com.example.foodorderingapp.adapters
 
 import android.content.Context
 import android.content.Intent
+import android.net.Uri
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.foodorderingapp.FoodDetails
 import com.example.foodorderingapp.databinding.PopulearitemlayoutBinding
+import com.example.foodorderingapp.datamodel.menuitemModel
 
-class populearAdapter(private val PopulearItemName:MutableList<String>,
-                      private  val PopulearItemPrice:MutableList<String>,
-                      private val PopulearItemImage: MutableList<Int>,
-                      private val requireCotext:Context)
+class populearAdapter(private val menuItem:List<menuitemModel>,private val requireCotext:Context)
     : RecyclerView.Adapter<populearAdapter.populearViewHolder>(){
-    class populearViewHolder(private val binnding:PopulearitemlayoutBinding) : RecyclerView.ViewHolder(binnding.root) {
-
-        private val Image = binnding.PopulearItemImageView
-        fun bind(populearItemNames: String, populearItemPrice: String, populearItemImage: Int) {
-            binnding.PopulearItemNameTextView.text = populearItemNames
-            Image.setImageResource(populearItemImage)
-            binnding.PopulearItemPriceTextView.text = populearItemPrice
+    inner class populearViewHolder(private val binnding:PopulearitemlayoutBinding) : RecyclerView.ViewHolder(binnding.root) {
+        fun bind(position: Int) {
+            binnding.PopulearItemNameTextView.text = menuItem[position].foodName
+            binnding.PopulearItemPriceTextView.text = menuItem[position].foodPrice
+            val menuImageUri = Uri.parse(menuItem[position].foodImage)
+            Glide.with(requireCotext).load(menuImageUri).into(binnding.PopulearItemImageView)
         }
 
     }
@@ -29,20 +28,27 @@ class populearAdapter(private val PopulearItemName:MutableList<String>,
     }
 
     override fun getItemCount(): Int {
-        return PopulearItemName.size
+        return menuItem.size
     }
 
     override fun onBindViewHolder(holder: populearViewHolder, position: Int) {
-        val PopulearItemNames = PopulearItemName[position]
-        val PopulearItemPrice = PopulearItemPrice[position]
-        val PopulearItemImage = PopulearItemImage[position]
-        holder.bind(PopulearItemNames,PopulearItemPrice,PopulearItemImage)
+        holder.bind(position)
 
         holder.itemView.setOnClickListener() {
-            val intent = Intent(requireCotext, FoodDetails::class.java)
-            intent.putExtra("FoodName", PopulearItemNames)
-            intent.putExtra("FoodImage", PopulearItemImage)
-            requireCotext.startActivity(intent)
+            openItemDetails(position)
         }
+    }
+
+    private fun openItemDetails(position: Int) {
+        val menuItem = menuItem[position]
+
+        val intent = Intent(requireCotext,FoodDetails::class.java).apply {
+            putExtra("foodName",menuItem.foodName)
+            putExtra("foodPrice",menuItem.foodPrice)
+            putExtra("foodDescription",menuItem.foodDiscribtion)
+            putExtra("foodIngredent",menuItem.foodIngradent)
+            putExtra("foodImage",menuItem.foodImage)
+        }
+        requireCotext.startActivity(intent)
     }
 }
