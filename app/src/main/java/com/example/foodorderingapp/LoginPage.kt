@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.AppCompatDelegate
 import com.example.foodorderingapp.databinding.ActivityLoginPageBinding
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
@@ -92,5 +93,14 @@ class LoginPage : AppCompatActivity() {
         }else{
             Toast.makeText(this,"sign In Failed",Toast.LENGTH_SHORT).show()
         }
+    }
+    override fun onStart() {
+        super.onStart()
+        //turn off night mode
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+        //check if already log In
+        val currentUser =  firebaseAuth.currentUser
+        if (currentUser!=null)
+            updateUi(user = null)
     }
 }
