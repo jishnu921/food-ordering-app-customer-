@@ -79,7 +79,7 @@ class SignInPage : AppCompatActivity() {
         val user = userdata(name,email,password)
         val userId = FirebaseAuth.getInstance().currentUser!!.uid
         //saving data in firebase database
-        database.child("Customer").child(userId).setValue(user)
+        database.child("Customer").child(userId).child("user details").push().setValue(user)
     }
     //launcher for google signIn
     private val launcher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()){

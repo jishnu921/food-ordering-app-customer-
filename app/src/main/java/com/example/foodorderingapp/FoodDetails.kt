@@ -50,7 +50,7 @@ class FoodDetails : AppCompatActivity() {
         //create a cart data model
         val CartItem = cartItem(FoodName,FoodPrice,foodDescription,foodIngredent,foodImage,1)
         // save crt item data in firebase
-        database.child("user").child(userId).child("cartItem").push().setValue(CartItem)
+        database.child("Customer").child(userId).child("cartItem").push().setValue(CartItem)
             .addOnSuccessListener {
             makeToast("item added")
         }.addOnFailureListener(){

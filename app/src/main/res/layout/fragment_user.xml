@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -7,111 +8,139 @@
     tools:context=".fragments.userFragment">
 
     <LinearLayout
-        android:elevation="20dp"
-        android:gravity="center"
+        android:id="@+id/linearLayout2"
         android:layout_width="match_parent"
-        android:layout_height="56dp"
-        android:paddingStart="16dp"
-        android:background="@drawable/profile_box_layout"
-        android:paddingEnd="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginEnd="10dp">
-        <TextView
-            android:padding="7dp"
-            android:layout_width="110dp"
-            android:layout_height="wrap_content"
-            android:text="Name"
-            android:fontFamily="@font/yeonsungregular"
-            android:textSize="30dp"/>
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-        <EditText
-            android:padding="7dp"
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="10dp"
+            android:background="@drawable/profile_box_layout"
+            android:elevation="20dp"
+            android:gravity="center"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp">
+
+            <TextView
+                android:layout_width="110dp"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/yeonsungregular"
+                android:padding="7dp"
+                android:text="Name"
+                android:textSize="30dp" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:inputType="text"
+                android:padding="7dp" />
+        </LinearLayout>
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="text"
-            android:background="@android:color/transparent" />
-    </LinearLayout>
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="10dp"
+            android:background="@drawable/profile_box_layout"
+            android:elevation="20dp"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp">
 
-    <LinearLayout
-        android:elevation="20dp"
-        android:paddingStart="16dp"
-        android:background="@drawable/profile_box_layout"
-        android:paddingEnd="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginEnd="10dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <TextView
-            android:padding="7dp"
-            android:layout_width="110dp"
-            android:layout_height="wrap_content"
-            android:text="Address"
-            android:fontFamily="@font/yeonsungregular"
-            android:textSize="30dp"/>
+            <TextView
+                android:layout_width="110dp"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/yeonsungregular"
+                android:padding="7dp"
+                android:text="Address"
+                android:textSize="30dp" />
 
-        <EditText
-            android:padding="7dp"
-            android:text="Lorem ipsum is placeholder text commonly used in the graphic,print, and publishing industries for previewing layouts and visual "
-            android:inputType="textMultiLine"
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:inputType="textMultiLine"
+                android:padding="7dp"
+                android:text="Lorem ipsum is placeholder text commonly used in the graphic,print, and publishing industries for previewing layouts and visual " />
+        </LinearLayout>
+
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@android:color/transparent" />
-    </LinearLayout>
+            android:layout_height="56dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="10dp"
+            android:background="@drawable/profile_box_layout"
+            android:elevation="20dp"
+            android:gravity="center"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp">
 
-    <LinearLayout
-        android:elevation="20dp"
-        android:paddingStart="16dp"
-        android:background="@drawable/profile_box_layout"
-        android:paddingEnd="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginEnd="10dp"
-        android:layout_width="match_parent"
-        android:layout_height="56dp"
-        android:gravity="center">
-        <TextView
-            android:padding="7dp"
-            android:layout_width="110dp"
-            android:layout_height="wrap_content"
-            android:text="Email"
-            android:fontFamily="@font/yeonsungregular"
-            android:textSize="30dp"/>
+            <TextView
+                android:layout_width="110dp"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/yeonsungregular"
+                android:padding="7dp"
+                android:text="Email"
+                android:textSize="30dp" />
 
-        <EditText
-            android:padding="7dp"
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:inputType="textEmailAddress"
+                android:padding="7dp" />
+        </LinearLayout>
+
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="textEmailAddress"
-            android:background="@android:color/transparent" />
+            android:layout_height="56dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/profile_box_layout"
+            android:elevation="20dp"
+            android:gravity="center"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp">
+
+            <TextView
+                android:layout_width="110dp"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/yeonsungregular"
+                android:padding="7dp"
+                android:text="Phone"
+                android:textSize="30dp" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:inputType="number"
+                android:padding="7dp" />
+        </LinearLayout>
     </LinearLayout>
 
-    <LinearLayout
-        android:elevation="20dp"
-        android:paddingStart="16dp"
-        android:background="@drawable/profile_box_layout"
-        android:paddingEnd="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginEnd="10dp"
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/logout"
         android:layout_width="match_parent"
-        android:layout_height="56dp"
-        android:gravity="center">
-        <TextView
-            android:padding="7dp"
-            android:layout_width="110dp"
-            android:layout_height="wrap_content"
-            android:text="Phone"
-            android:fontFamily="@font/yeonsungregular"
-            android:textSize="30dp"/>
+        android:layout_height="wrap_content"
+        android:background="@drawable/button_color"
+        android:text="Log Out"
+        android:fontFamily="@font/yeonsungregular"
+        android:textColor="@color/white"
+        android:layout_margin="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
-        <EditText
-            android:padding="7dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="number"
-            android:background="@android:color/transparent" />
-    </LinearLayout>
-
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
