@@ -17,6 +17,7 @@ class startScreen : AppCompatActivity() {
 
         binding.nextButtonStartScreen.setOnClickListener(){
             startActivity(Intent(this,LoginPage::class.java));
+            finish()
         }
     }
 }

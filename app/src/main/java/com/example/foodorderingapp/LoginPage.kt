@@ -96,8 +96,6 @@ class LoginPage : AppCompatActivity() {
     }
     override fun onStart() {
         super.onStart()
-        //turn off night mode
-        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         //check if already log In
         val currentUser =  firebaseAuth.currentUser
         if (currentUser!=null)

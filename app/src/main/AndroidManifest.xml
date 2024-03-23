@@ -31,10 +31,10 @@
             android:name=".startScreen"
             android:exported="false" />
         <activity
-            android:name=".splashScreen"
+            android:name=".LoginPage"
             android:exported="true" />
         <activity
-            android:name=".LoginPage"
+            android:name=".splashScreen"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
