@@ -11,12 +11,28 @@ import com.example.foodorderingapp.R
 import com.example.foodorderingapp.adapters.cartAdapter
 import com.example.foodorderingapp.buy_details_filling
 import com.example.foodorderingapp.databinding.FragmentCartfragmentBinding
+import com.example.foodorderingapp.datamodel.cartItem
 import com.example.foodorderingapp.locationSelection
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
+import com.google.firebase.ktx.Firebase
 
 
 class cartfragment : Fragment() {
     private lateinit var binding:FragmentCartfragmentBinding
-
+    private lateinit var firebaseAuth: FirebaseAuth
+    private lateinit var database: FirebaseDatabase
+    private lateinit var FoodName:MutableList<String>
+    private lateinit var FoodPrice:MutableList<String>
+    private lateinit var FoodDescribtion:MutableList<String>
+    private lateinit var FoodIngredients:MutableList<String>
+    private lateinit var quantity:MutableList<Int>
+    private lateinit var FoodImageUri : MutableList<String>
+    private lateinit var CartAdapter:cartAdapter
+    private lateinit var UserId : String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,31 +43,51 @@ class cartfragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding =FragmentCartfragmentBinding.inflate(inflater,container,false)
+
+        firebaseAuth =  FirebaseAuth.getInstance()
+        reteriveCartItems()
         return binding.root
+    }
+
+    private fun reteriveCartItems() {
+        database =  FirebaseDatabase.getInstance()
+        UserId = firebaseAuth.currentUser?.uid?:""
+        val databaseReference = database.reference.child("Customer").child(UserId).child("cart details")
+
+        FoodName = mutableListOf()
+        FoodPrice = mutableListOf()
+        FoodDescribtion = mutableListOf()
+        FoodIngredients = mutableListOf()
+        FoodImageUri = mutableListOf()
+        quantity =  mutableListOf()
+
+        //fetch data from fireBase
+        databaseReference.addListenerForSingleValueEvent(object : ValueEventListener{
+            override fun onDataChange(snapshot: DataSnapshot) {
+                for (foodSnapShot in snapshot.children){
+                    val cartItems =  foodSnapShot.getValue(cartItem::class.java)
+                    cartItems?.foodname?.let {FoodName.add(it)}
+                    cartItems?.foodPrice?.let {FoodPrice.add(it)}
+                    cartItems?.foodDescription?.let {FoodDescribtion.add(it)}
+                    cartItems?.foodIngradent?.let {FoodIngredients.add(it)}
+                    cartItems?.foodQuanity?.let {quantity.add(it)}
+                    cartItems?.foodimage?.let {FoodImageUri.add(it)}
+                }
+
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+
+            }
+
+        })
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val CartFoodName =
-            listOf("burger", "sandwich", "fry", "cake", "burger", "sandwich", "fry", "cake")
-        val CartFoodPrice = listOf("Rs110", "Rs60", "Rs65", "Rs60", "Rs110", "Rs60", "Rs65", "Rs60")
-        val CartFoodImage = listOf(
-            R.drawable.burger,
-            R.drawable.sandwich,
-            R.drawable.frys,
-            R.drawable.cake,
-            R.drawable.burger,
-            R.drawable.sandwich,
-            R.drawable.frys,
-            R.drawable.cake
-        )
-        val adapter = cartAdapter(
-            ArrayList(CartFoodName), ArrayList(CartFoodPrice),
-            ArrayList(CartFoodImage)
-        )
         binding.RecyclerViewCardFragment.layoutManager = LinearLayoutManager(requireContext())
-        binding.RecyclerViewCardFragment.adapter = adapter
+        binding.RecyclerViewCardFragment.adapter = CartAdapter
 
         binding.buyCartFragment.setOnClickListener() {
             startActivity(Intent(context, buy_details_filling::class.java))
