@@ -25,17 +25,17 @@ import com.google.firebase.ktx.Firebase
 
 
 class cartfragment : Fragment() {
-    private lateinit var binding:FragmentCartfragmentBinding
+    private lateinit var binding: FragmentCartfragmentBinding
     private lateinit var firebaseAuth: FirebaseAuth
     private lateinit var database: FirebaseDatabase
-    private lateinit var FoodName:MutableList<String>
-    private lateinit var FoodPrice:MutableList<String>
-    private lateinit var FoodDescribtion:MutableList<String>
-    private lateinit var FoodIngredients:MutableList<String>
-    private lateinit var quantity:MutableList<Int>
-    private lateinit var FoodImageUri : MutableList<String>
-    private lateinit var CartAdapter:cartAdapter
-    private lateinit var UserId : String
+    private lateinit var FoodName: MutableList<String>
+    private lateinit var FoodPrice: MutableList<String>
+    private lateinit var FoodDescribtion: MutableList<String>
+    private lateinit var FoodIngredients: MutableList<String>
+    private lateinit var quantity: MutableList<Int>
+    private lateinit var FoodImageUri: MutableList<String>
+    private lateinit var CartAdapter: cartAdapter
+    private lateinit var UserId: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,16 +45,16 @@ class cartfragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding =FragmentCartfragmentBinding.inflate(inflater,container,false)
+        binding = FragmentCartfragmentBinding.inflate(inflater, container, false)
 
-        firebaseAuth =  FirebaseAuth.getInstance()
+        firebaseAuth = FirebaseAuth.getInstance()
         reteriveCartItems()
         return binding.root
     }
 
     private fun reteriveCartItems() {
-        database =  FirebaseDatabase.getInstance()
-        UserId = firebaseAuth.currentUser?.uid?:""
+        database = FirebaseDatabase.getInstance()
+        UserId = firebaseAuth.currentUser?.uid ?: ""
         val databaseReference = database.reference.child("Customer").child(UserId).child("cartItem")
 
         FoodName = mutableListOf()
@@ -62,33 +62,42 @@ class cartfragment : Fragment() {
         FoodDescribtion = mutableListOf()
         FoodIngredients = mutableListOf()
         FoodImageUri = mutableListOf()
-        quantity =  mutableListOf()
+        quantity = mutableListOf()
 
         //fetch data from fireBase
-        databaseReference.addListenerForSingleValueEvent(object : ValueEventListener{
+        databaseReference.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
-                for (foodSnapShot in snapshot.children){
-                    val cartItems =  foodSnapShot.getValue(cartItem::class.java)
-                    cartItems?.foodname?.let {FoodName.add(it)}
-                    cartItems?.foodPrice?.let {FoodPrice.add(it)}
-                    cartItems?.foodDescription?.let {FoodDescribtion.add(it)}
-                    cartItems?.foodIngradent?.let {FoodIngredients.add(it)}
-                    cartItems?.foodQuanity?.let {quantity.add(it)}
-                    cartItems?.foodimage?.let {FoodImageUri.add(it)}
+                for (foodSnapShot in snapshot.children) {
+                    val cartItems = foodSnapShot.getValue(cartItem::class.java)
+                    cartItems?.foodname?.let { FoodName.add(it) }
+                    cartItems?.foodPrice?.let { FoodPrice.add(it) }
+                    cartItems?.foodDescription?.let { FoodDescribtion.add(it) }
+                    cartItems?.foodIngradent?.let { FoodIngredients.add(it) }
+                    cartItems?.foodQuanity?.let { quantity.add(it) }
+                    cartItems?.foodimage?.let { FoodImageUri.add(it) }
                 }
                 setAdapter()
             }
 
             override fun onCancelled(error: DatabaseError) {
-                Toast.makeText(requireContext(),"data not featch",Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), "data not featch", Toast.LENGTH_SHORT).show()
             }
 
         })
     }
 
     private fun setAdapter() {
-        CartAdapter = cartAdapter(FoodName,FoodPrice,FoodImageUri,FoodDescribtion,FoodIngredients,quantity,requireContext())
-        binding.RecyclerViewCardFragment.layoutManager = LinearLayoutManager(requireContext(),LinearLayoutManager.VERTICAL,false)
+        CartAdapter = cartAdapter(
+            FoodName,
+            FoodPrice,
+            FoodImageUri,
+            FoodDescribtion,
+            FoodIngredients,
+            quantity,
+            requireContext()
+        )
+        binding.RecyclerViewCardFragment.layoutManager =
+            LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
         binding.RecyclerViewCardFragment.adapter = CartAdapter
     }
 
@@ -112,21 +121,32 @@ class cartfragment : Fragment() {
         //get item quantity
         val FoodItemQuanity = CartAdapter.getUpdatedItemQuantity()
 
-        databaseReference.addListenerForSingleValueEvent(object : ValueEventListener{
+        databaseReference.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
-                for (foodSnapShot in snapshot.children){
-                    val orderItem =  foodSnapShot.getValue(cartItem::class.java)
+                for (foodSnapShot in snapshot.children) {
+                    val orderItem = foodSnapShot.getValue(cartItem::class.java)
                     orderItem?.foodimage?.let { FoodImage.add(it) }
                     orderItem?.foodname?.let { FoodName.add(it) }
                     orderItem?.foodDescription?.let { FoodDescribtion.add(it) }
                     orderItem?.foodIngradent?.let { FoodIngredient.add(it) }
                     orderItem?.foodPrice?.let { FoodPrice.add(it) }
                 }
-                order(FoodName,FoodPrice,FoodImage,FoodDescribtion,FoodIngredient,FoodItemQuanity)
+                order(
+                    FoodName,
+                    FoodPrice,
+                    FoodImage,
+                    FoodDescribtion,
+                    FoodIngredient,
+                    FoodItemQuanity
+                )
             }
 
             override fun onCancelled(error: DatabaseError) {
-                Toast.makeText(requireContext(),"ordering failed please try again",Toast.LENGTH_SHORT).show()
+                Toast.makeText(
+                    requireContext(),
+                    "ordering failed please try again",
+                    Toast.LENGTH_SHORT
+                ).show()
             }
 
         })
@@ -140,14 +160,14 @@ class cartfragment : Fragment() {
         foodIngredient: MutableList<String>,
         foodItemQuanity: MutableList<Int>
     ) {
-        if (isAdded && context!=null){
-            val intent = Intent(requireContext(),buy_details_filling::class.java)
-            intent.putExtra("foodName",foodName as ArrayList<String>)
-            intent.putExtra("foodPrice",foodPrice as ArrayList<String>)
-            intent.putExtra("foodDescribtion",foodDescribtion as ArrayList<String>)
-            intent.putExtra("foodIngredient",foodIngredient as ArrayList<String>)
+        if (isAdded && context != null) {
+            val intent = Intent(requireContext(), buy_details_filling::class.java)
+            intent.putExtra("foodName", foodName as ArrayList<String>)
+            intent.putExtra("foodPrice", foodPrice as ArrayList<String>)
+            intent.putExtra("foodDescribtion", foodDescribtion as ArrayList<String>)
+            intent.putExtra("foodIngredient", foodIngredient as ArrayList<String>)
             intent.putExtra("foodImage", foodImage as ArrayList<String>)
-            intent.putExtra("foodItemQuanity",foodItemQuanity as ArrayList<Int>)
+            intent.putExtra("foodItemQuanity", foodItemQuanity as ArrayList<Int>)
             startActivity(intent)
         }
     }
