@@ -72,8 +72,9 @@ class cartAdapter(private val CartItemName: MutableList<String>,
             }
         }
         fun addQuantity(){
-            if (quantityOfItem[adapterPosition]<10)
-            quantityOfItem[adapterPosition]++
+            if (quantityOfItem[adapterPosition]<10) {
+                quantityOfItem[adapterPosition]++
+            }
             binding.quantityCartItem.text = quantityOfItem[adapterPosition].toString()
         }
     }
