@@ -20,6 +20,7 @@ class cartAdapter(private val CartItemName: MutableList<String>,
                   private val CartItemPrice:MutableList<String>,
                   private val CartItemImage: MutableList<String>,
                   private val CartDescription:MutableList<String>,
+                  private val CartIngedeient:MutableList<String>,
                   private val CartQuienty:MutableList<Int>,
                   private val context:Context,)
     :RecyclerView.Adapter<MyCartViewHolder>() {
@@ -31,7 +32,7 @@ class cartAdapter(private val CartItemName: MutableList<String>,
         val cartItemNumber = CartItemName.size
 
         quantityOfItem =  IntArray(cartItemNumber){1}
-        databaseReference =  database.reference.child("Customer").child(UserId).child("cart details")
+        databaseReference =  database.reference.child("Customer").child(UserId).child("cartItem")
     }
     companion object{
         private var quantityOfItem : IntArray =  intArrayOf()
@@ -86,6 +87,7 @@ class cartAdapter(private val CartItemName: MutableList<String>,
                 CartDescription.removeAt(position)
                 CartQuienty.removeAt(position)
                 CartItemPrice.removeAt(position)
+                CartIngedeient.removeAt(position)
                 Toast.makeText(context,"Item Delete",Toast.LENGTH_SHORT).show()
                 quantityOfItem=  quantityOfItem.filterIndexed {index, i -> index!=position }.toIntArray()
                 notifyItemRemoved(position)

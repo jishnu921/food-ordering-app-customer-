@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.foodorderingapp.R
@@ -52,7 +53,7 @@ class cartfragment : Fragment() {
     private fun reteriveCartItems() {
         database =  FirebaseDatabase.getInstance()
         UserId = firebaseAuth.currentUser?.uid?:""
-        val databaseReference = database.reference.child("Customer").child(UserId).child("cart details")
+        val databaseReference = database.reference.child("Customer").child(UserId).child("cartItem")
 
         FoodName = mutableListOf()
         FoodPrice = mutableListOf()
@@ -73,21 +74,24 @@ class cartfragment : Fragment() {
                     cartItems?.foodQuanity?.let {quantity.add(it)}
                     cartItems?.foodimage?.let {FoodImageUri.add(it)}
                 }
-
+                setAdapter()
             }
 
             override fun onCancelled(error: DatabaseError) {
-
+                Toast.makeText(requireContext(),"data not featch",Toast.LENGTH_SHORT).show()
             }
 
         })
     }
 
+    private fun setAdapter() {
+        CartAdapter = cartAdapter(FoodName,FoodPrice,FoodImageUri,FoodDescribtion,FoodIngredients,quantity,requireContext())
+        binding.RecyclerViewCardFragment.layoutManager = LinearLayoutManager(requireContext(),LinearLayoutManager.VERTICAL,false)
+        binding.RecyclerViewCardFragment.adapter = CartAdapter
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        binding.RecyclerViewCardFragment.layoutManager = LinearLayoutManager(requireContext())
-        binding.RecyclerViewCardFragment.adapter = CartAdapter
 
         binding.buyCartFragment.setOnClickListener() {
             startActivity(Intent(context, buy_details_filling::class.java))
