@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.foodorderingapp.FoodDetails
 import com.example.foodorderingapp.R
 import com.example.foodorderingapp.adapters.cartAdapter
 import com.example.foodorderingapp.buy_details_filling
@@ -19,6 +20,7 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
+import com.google.firebase.database.getValue
 import com.google.firebase.ktx.Firebase
 
 
@@ -94,9 +96,62 @@ class cartfragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.buyCartFragment.setOnClickListener() {
-            startActivity(Intent(context, buy_details_filling::class.java))
+            getOrderItemDetails()
+            val intent = Intent(context, buy_details_filling::class.java)
+            startActivity(intent)
         }
     }
+
+    private fun getOrderItemDetails() {
+        val databaseReference = database.reference.child("Customer").child(UserId).child("cartItem")
+        val FoodName = mutableListOf<String>()
+        val FoodImage = mutableListOf<String>()
+        val FoodPrice = mutableListOf<String>()
+        val FoodDescribtion = mutableListOf<String>()
+        val FoodIngredient = mutableListOf<String>()
+        //get item quantity
+        val FoodItemQuanity = CartAdapter.getUpdatedItemQuantity()
+
+        databaseReference.addListenerForSingleValueEvent(object : ValueEventListener{
+            override fun onDataChange(snapshot: DataSnapshot) {
+                for (foodSnapShot in snapshot.children){
+                    val orderItem =  foodSnapShot.getValue(cartItem::class.java)
+                    orderItem?.foodimage?.let { FoodImage.add(it) }
+                    orderItem?.foodname?.let { FoodName.add(it) }
+                    orderItem?.foodDescription?.let { FoodDescribtion.add(it) }
+                    orderItem?.foodIngradent?.let { FoodIngredient.add(it) }
+                    orderItem?.foodPrice?.let { FoodPrice.add(it) }
+                }
+                order(FoodName,FoodPrice,FoodImage,FoodDescribtion,FoodIngredient,FoodItemQuanity)
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                Toast.makeText(requireContext(),"ordering failed please try again",Toast.LENGTH_SHORT).show()
+            }
+
+        })
+    }
+
+    private fun order(
+        foodName: MutableList<String>,
+        foodPrice: MutableList<String>,
+        foodImage: MutableList<String>,
+        foodDescribtion: MutableList<String>,
+        foodIngredient: MutableList<String>,
+        foodItemQuanity: MutableList<Int>
+    ) {
+        if (isAdded && context!=null){
+            val intent = Intent(requireContext(),buy_details_filling::class.java)
+            intent.putExtra("foodName",foodName as ArrayList<String>)
+            intent.putExtra("foodPrice",foodPrice as ArrayList<String>)
+            intent.putExtra("foodDescribtion",foodDescribtion as ArrayList<String>)
+            intent.putExtra("foodIngredient",foodIngredient as ArrayList<String>)
+            intent.putExtra("foodImage", foodImage as ArrayList<String>)
+            intent.putExtra("foodItemQuanity",foodItemQuanity as ArrayList<Int>)
+            startActivity(intent)
+        }
+    }
+
     companion object {
     }
 }
