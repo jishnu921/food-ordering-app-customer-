@@ -41,6 +41,20 @@ class buy_details_filling : AppCompatActivity() {
         //set userdata
         setUserData()
 
+        //get user details from fire base
+        val intent = intent
+        foodName = intent.getStringArrayListExtra("foodName") as ArrayList<String>
+        foodPrice = intent.getStringArrayListExtra("foodPrice") as ArrayList<String>
+        foodDescribtion = intent.getStringArrayListExtra("foodDescribtion") as ArrayList<String>
+        foodIngredient = intent.getStringArrayListExtra("foodIngredient") as ArrayList<String>
+        foodImage = intent.getStringArrayListExtra("foodImage") as ArrayList<String>
+        foodItemQuanity = intent.getStringArrayListExtra("foodItemQuanity") as ArrayList<Int>
+
+        //setting total amount
+        TotalAmount = "Rs"+calculateTotalAmount().toString()
+        binding.totalAmountEditText.isEnabled = false
+        binding.totalAmountEditText.text = TotalAmount
+
         binding.backButtonButDetails.setOnClickListener(){
             finish()
         }
@@ -50,18 +64,28 @@ class buy_details_filling : AppCompatActivity() {
         }
     }
 
+    private fun calculateTotalAmount(): Int {
+        var totalAmount = 0
+        for (i in 0 until foodPrice.size){
+            var price = foodPrice[i].toInt()
+            var quantity = foodItemQuanity[i]
+            totalAmount+= price * quantity
+        }
+        return totalAmount
+    }
+
     private fun setUserData() {
         val user =  firebaseAuth.currentUser
         if (user!=null){
             val userId = user.uid
-            val userReference = databaseReference.child("Customer").child(userId)
+            val userReference = databaseReference.child("Customer").child(userId).child("sign in details")
 
             userReference.addListenerForSingleValueEvent(object : ValueEventListener{
                 override fun onDataChange(snapshot: DataSnapshot) {
                     if (snapshot.exists()){
-                        val name =  snapshot.child("sign in details").child("name").getValue(String::class.java)?:""
+                        val name =  snapshot.child("name").getValue(String::class.java)?:""
                         val address = snapshot.child("address").getValue(String::class.java)?:""
-                        val phone = snapshot.child("address").getValue(String::class.java)?:""
+                        val phone = snapshot.child("phone").getValue(String::class.java)?:""
                         binding.apply {
                             nameEditText.setText(name)
                             addressEditText.setText(address)
