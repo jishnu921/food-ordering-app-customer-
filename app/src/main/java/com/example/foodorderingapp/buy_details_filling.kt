@@ -48,7 +48,7 @@ class buy_details_filling : AppCompatActivity() {
         foodDescribtion = intent.getStringArrayListExtra("foodDescribtion") as ArrayList<String>
         foodIngredient = intent.getStringArrayListExtra("foodIngredient") as ArrayList<String>
         foodImage = intent.getStringArrayListExtra("foodImage") as ArrayList<String>
-        foodItemQuanity = intent.getStringArrayListExtra("foodItemQuanity") as ArrayList<Int>
+        foodItemQuanity = intent.getIntegerArrayListExtra("foodItemQuanity") as ArrayList<Int>
 
         //setting total amount
         TotalAmount = "Rs"+calculateTotalAmount().toString()

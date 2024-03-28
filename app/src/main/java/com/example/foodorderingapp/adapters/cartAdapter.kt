@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.foodorderingapp.adapters.cartAdapter.MyCartViewHolder
 import com.example.foodorderingapp.databinding.CartItemLayoutBinding
+import com.example.foodorderingapp.datamodel.cartItem
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -60,6 +61,7 @@ class cartAdapter(private val CartItemName: MutableList<String>,
         fun reduseQuantity(){
             if (quantityOfItem[adapterPosition]>1) {
                 quantityOfItem[adapterPosition]--
+                CartQuienty[adapterPosition] = quantityOfItem[adapterPosition]
                 binding.quantityCartItem.text = quantityOfItem[adapterPosition].toString()
             }
         }
@@ -74,6 +76,7 @@ class cartAdapter(private val CartItemName: MutableList<String>,
         fun addQuantity(){
             if (quantityOfItem[adapterPosition]<10) {
                 quantityOfItem[adapterPosition]++
+                CartQuienty[adapterPosition] = quantityOfItem[adapterPosition]
             }
             binding.quantityCartItem.text = quantityOfItem[adapterPosition].toString()
         }
