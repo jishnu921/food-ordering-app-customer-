@@ -3,6 +3,7 @@ package com.example.foodorderingapp
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Toast
 import com.example.foodorderingapp.databinding.ActivityBuyDetailsFillingBinding
 import com.example.foodorderingapp.fragments.cartfragment
 import com.example.foodorderingapp.fragments.congrats_bottomSheet
@@ -59,9 +60,25 @@ class buy_details_filling : AppCompatActivity() {
             finish()
         }
         binding.placeOrderButton.setOnClickListener(){
-            val orderStatus = congrats_bottomSheet()
-            orderStatus.show(supportFragmentManager,"Test")
+            //val orderStatus = congrats_bottomSheet()
+            //orderStatus.show(supportFragmentManager,"Test")
+            Name = binding.nameEditText.text.toString().trim()
+            Phone = binding.phoneEditText.text.toString().trim()
+            Address = binding.addressEditText.text.toString().trim()
+
+            if (Name.isBlank()||Phone.isBlank()||Address.isBlank()){
+                Toast.makeText(this,"Fill out the details",Toast.LENGTH_SHORT).show()
+            }else{
+                placeOrder()
+            }
         }
+    }
+
+    private fun placeOrder() {
+        userId = firebaseAuth.currentUser?.uid?:""
+        val time = System.currentTimeMillis()
+        val itemPushKey = databaseReference.child("order details").push().key
+
     }
 
     private fun calculateTotalAmount(): Int {
