@@ -11,6 +11,7 @@
         android:id="@+id/linearLayout2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
         android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -68,8 +69,8 @@
                 android:layout_height="wrap_content"
                 android:background="@android:color/transparent"
                 android:inputType="textMultiLine"
-                android:padding="7dp"
-                android:text="Lorem ipsum is placeholder text commonly used in the graphic,print, and publishing industries for previewing layouts and visual " />
+                android:minHeight="100dp"
+                android:padding="7dp" />
         </LinearLayout>
 
         <LinearLayout

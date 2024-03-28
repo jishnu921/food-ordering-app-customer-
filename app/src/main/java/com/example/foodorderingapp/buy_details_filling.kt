@@ -59,7 +59,7 @@ class buy_details_filling : AppCompatActivity() {
             userReference.addListenerForSingleValueEvent(object : ValueEventListener{
                 override fun onDataChange(snapshot: DataSnapshot) {
                     if (snapshot.exists()){
-                        val name =  snapshot.child("name").getValue(String::class.java)?:""
+                        val name =  snapshot.child("sign in details").child("name").getValue(String::class.java)?:""
                         val address = snapshot.child("address").getValue(String::class.java)?:""
                         val phone = snapshot.child("address").getValue(String::class.java)?:""
                         binding.apply {
