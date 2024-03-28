@@ -106,8 +106,6 @@ class cartfragment : Fragment() {
 
         binding.buyCartFragment.setOnClickListener() {
             getOrderItemDetails()
-            val intent = Intent(context, buy_details_filling::class.java)
-            startActivity(intent)
         }
     }
 
