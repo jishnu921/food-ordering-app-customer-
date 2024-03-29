@@ -59,7 +59,7 @@ class cartAdapter(private val CartItemName: MutableList<String>,
             }
         }
         fun reduseQuantity(){
-            if (quantityOfItem[adapterPosition]>1) {
+            if (quantityOfItem[adapterPosition]>1){
                 quantityOfItem[adapterPosition]--
                 CartQuienty[adapterPosition] = quantityOfItem[adapterPosition]
                 binding.quantityCartItem.text = quantityOfItem[adapterPosition].toString()
