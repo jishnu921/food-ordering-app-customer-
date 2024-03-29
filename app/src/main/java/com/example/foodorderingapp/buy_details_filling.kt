@@ -78,7 +78,7 @@ class buy_details_filling : AppCompatActivity() {
         userId = firebaseAuth.currentUser?.uid?:""
         val time = System.currentTimeMillis()
         val itemPushKey = databaseReference.child("order details").push().key
-
+        val orderDetails =
     }
 
     private fun calculateTotalAmount(): Int {
