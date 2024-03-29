@@ -79,14 +79,21 @@ class buy_details_filling : AppCompatActivity() {
         val itemPushKey = databaseReference.child("order details").push().key
         val orderDetails = orderDetails(userId,Name,Address,TotalAmount,Phone,itemPushKey,foodName,foodImage,foodPrice,foodItemQuanity,false,false,time)
         val orderReference = databaseReference.child("order details").child(itemPushKey!!)
-        orderReference.setValue(orderReference).addOnSuccessListener {
+        orderReference.setValue(orderDetails).addOnSuccessListener {
             val orderStatus = congrats_bottomSheet()
-            orderStatus.show(supportFragmentManager,"Test")
+            orderStatus.show(supportFragmentManager,"Test" )
             removeItemFromCart()
-            finish()
+            addOrderToHistory(orderDetails)
         }.addOnFailureListener{
             Toast.makeText(this,"error",Toast.LENGTH_SHORT).show()
         }
+    }
+
+    private fun addOrderToHistory(orderDetails: orderDetails){
+        databaseReference.child("Customer").child(userId).child("Buy History")
+            .child(orderDetails.itemPushKey!!).setValue(orderDetails).addOnSuccessListener {
+
+            }
     }
 
     private fun removeItemFromCart() {
