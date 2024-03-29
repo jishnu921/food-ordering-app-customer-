@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
 import com.example.foodorderingapp.databinding.ActivityBuyDetailsFillingBinding
+import com.example.foodorderingapp.datamodel.orderDetails
 import com.example.foodorderingapp.fragments.cartfragment
 import com.example.foodorderingapp.fragments.congrats_bottomSheet
 import com.google.firebase.auth.FirebaseAuth
@@ -60,8 +61,6 @@ class buy_details_filling : AppCompatActivity() {
             finish()
         }
         binding.placeOrderButton.setOnClickListener(){
-            //val orderStatus = congrats_bottomSheet()
-            //orderStatus.show(supportFragmentManager,"Test")
             Name = binding.nameEditText.text.toString().trim()
             Phone = binding.phoneEditText.text.toString().trim()
             Address = binding.addressEditText.text.toString().trim()
@@ -78,7 +77,21 @@ class buy_details_filling : AppCompatActivity() {
         userId = firebaseAuth.currentUser?.uid?:""
         val time = System.currentTimeMillis()
         val itemPushKey = databaseReference.child("order details").push().key
-        val orderDetails =
+        val orderDetails = orderDetails(userId,Name,Address,TotalAmount,Phone,itemPushKey,foodName,foodImage,foodPrice,foodItemQuanity,false,false,time)
+        val orderReference = databaseReference.child("order details").child(itemPushKey!!)
+        orderReference.setValue(orderReference).addOnSuccessListener {
+            val orderStatus = congrats_bottomSheet()
+            orderStatus.show(supportFragmentManager,"Test")
+            removeItemFromCart()
+            finish()
+        }.addOnFailureListener{
+            Toast.makeText(this,"error",Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    private fun removeItemFromCart() {
+        val cartItemDatabaseReference = databaseReference.child("Customer").child(userId).child("cartItem")
+        cartItemDatabaseReference.removeValue()
     }
 
     private fun calculateTotalAmount(): Int {
