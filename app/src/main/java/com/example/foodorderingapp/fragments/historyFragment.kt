@@ -38,7 +38,7 @@ class historyFragment : Fragment() {
     }
 
     private fun retrieveBuyHistory() {
-
+        binding.
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
