@@ -9,10 +9,17 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.foodorderingapp.R
 import com.example.foodorderingapp.adapters.historyAdapter
 import com.example.foodorderingapp.databinding.FragmentHistoryBinding
+import com.example.foodorderingapp.datamodel.orderDetails
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.FirebaseDatabase
 
 class historyFragment : Fragment() {
-
     private lateinit var binding:FragmentHistoryBinding
+    private lateinit var adapter:historyAdapter
+    private lateinit var database: FirebaseDatabase
+    private lateinit var firebaseAuth: FirebaseAuth
+    private lateinit var userId:String
+    private var listOfOrderItem:MutableList<orderDetails> = mutableListOf()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,7 +32,13 @@ class historyFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentHistoryBinding.inflate(inflater,container,false)
+
+        retrieveBuyHistory()
         return binding.root
+    }
+
+    private fun retrieveBuyHistory() {
+
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -33,7 +46,7 @@ class historyFragment : Fragment() {
         val PopularFoodName = listOf("burger","sandwich","fry","cake")
         val PopulearFoodPrice = listOf("Rs110","Rs60","Rs65","Rs60")
         val PopulearFoodImage = listOf(R.drawable.burger, R.drawable.sandwich, R.drawable.frys, R.drawable.cake)
-        val adapter = historyAdapter(PopularFoodName as MutableList<String>,PopulearFoodPrice as MutableList<String>,PopulearFoodImage as MutableList<Int>)
+        adapter = historyAdapter(PopularFoodName as MutableList<String>,PopulearFoodPrice as MutableList<String>,PopulearFoodImage as MutableList<Int>)
         binding.RecyclierHistoryFragment.layoutManager = LinearLayoutManager(requireContext())
         binding.RecyclierHistoryFragment.adapter = adapter
 
