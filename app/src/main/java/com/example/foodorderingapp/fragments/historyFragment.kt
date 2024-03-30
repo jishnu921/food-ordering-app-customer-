@@ -1,11 +1,13 @@
 package com.example.foodorderingapp.fragments
 
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.bumptech.glide.Glide
 import com.example.foodorderingapp.R
 import com.example.foodorderingapp.adapters.historyAdapter
 import com.example.foodorderingapp.databinding.FragmentHistoryBinding
@@ -72,7 +74,14 @@ class historyFragment : Fragment() {
 
     private fun setDataInCUrrentBuy() {
         binding.CurrentBuyCardView.visibility = View.VISIBLE
-
+        val recentOrderItem = listOfOrderItem.firstOrNull()
+        recentOrderItem?.let {
+            binding.CurrentBuyFoodName.text = it.foodNames?.firstOrNull()?:""
+            binding.CurrentFoodPrice.text = it.foodPrice?.firstOrNull()?:""
+            val image = it.foodImage?.firstOrNull()?:""
+            val uri = Uri.parse(image)
+            Glide.with(requireContext()).load(uri).into(binding.currentBuyFoodImage)
+        }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
