@@ -9,7 +9,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.foodorderingapp.adapters.cartAdapter.MyCartViewHolder
 import com.example.foodorderingapp.databinding.CartItemLayoutBinding
-import com.example.foodorderingapp.datamodel.cartItem
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
