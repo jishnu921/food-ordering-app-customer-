@@ -11,8 +11,11 @@ import com.example.foodorderingapp.adapters.historyAdapter
 import com.example.foodorderingapp.databinding.FragmentHistoryBinding
 import com.example.foodorderingapp.datamodel.orderDetails
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 
 class historyFragment : Fragment() {
     private lateinit var binding: FragmentHistoryBinding
@@ -45,6 +48,17 @@ class historyFragment : Fragment() {
 
         val buyItemReference : DatabaseReference = database.reference.child("Customer").child(userId).child("Buy History")
         val sortingQuery = buyItemReference.orderByChild("currentTime")
+
+        sortingQuery.addListenerForSingleValueEvent(object : ValueEventListener{
+            override fun onDataChange(snapshot: DataSnapshot) {
+
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+
+            }
+
+        })
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
