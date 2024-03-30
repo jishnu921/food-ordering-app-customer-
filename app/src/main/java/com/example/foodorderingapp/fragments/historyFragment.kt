@@ -51,7 +51,16 @@ class historyFragment : Fragment() {
 
         sortingQuery.addListenerForSingleValueEvent(object : ValueEventListener{
             override fun onDataChange(snapshot: DataSnapshot) {
-
+                for (buySnapshot in snapshot.children){
+                    val buyHistoryItem = buySnapshot.getValue(orderDetails::class.java)
+                    buyHistoryItem?.let {
+                        listOfOrderItem.add(it)
+                    }
+                }
+                listOfOrderItem.reverse()
+                if (listOfOrderItem.isNotEmpty()){
+                    setDataInCUrrentBuy()
+                }
             }
 
             override fun onCancelled(error: DatabaseError) {
@@ -59,6 +68,11 @@ class historyFragment : Fragment() {
             }
 
         })
+    }
+
+    private fun setDataInCUrrentBuy() {
+        binding.CurrentBuyCardView.visibility = View.VISIBLE
+
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
