@@ -1,12 +1,10 @@
 package com.example.foodorderingapp
 
-import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import com.example.foodorderingapp.databinding.ActivityBuyDetailsFillingBinding
 import com.example.foodorderingapp.datamodel.orderDetails
-import com.example.foodorderingapp.fragments.cartfragment
 import com.example.foodorderingapp.fragments.congrats_bottomSheet
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
@@ -104,7 +102,7 @@ class buy_details_filling : AppCompatActivity() {
     private fun calculateTotalAmount(): Int {
         var totalAmount = 0
         for (i in 0 until foodPrice.size){
-            var price = foodPrice[i].toInt()
+            var price = foodPrice[i].drop(2).toInt()
             var quantity = foodItemQuanity[i]
             totalAmount+= price * quantity
         }
