@@ -31,8 +31,8 @@ class searchAdapter(private val SearchItemName:MutableList<String>,
         }
         fun bind(position: Int) {
             binding.apply {
-                PopulearItemNameTextView.text = SearchItemName[position]
-                PopulearItemPriceTextView.text = SearchItemPrice[position]
+                FoodName.text = SearchItemName[position]
+                FoodPrice.text = SearchItemPrice[position]
                 PopulearItemImageView.setImageResource(SearchItemImage[position])
 
             }

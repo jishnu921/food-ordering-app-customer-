@@ -15,8 +15,8 @@ class populearAdapter(private val menuItem:List<menuitemModel>,private val requi
     : RecyclerView.Adapter<populearAdapter.populearViewHolder>(){
     inner class populearViewHolder(private val binnding:PopulearitemlayoutBinding) : RecyclerView.ViewHolder(binnding.root) {
         fun bind(position: Int) {
-            binnding.PopulearItemNameTextView.text = menuItem[position].foodName
-            binnding.PopulearItemPriceTextView.text = menuItem[position].foodPrice
+            binnding.FoodName.text = menuItem[position].foodName
+            binnding.FoodPrice.text = menuItem[position].foodPrice
             val menuImageUri = Uri.parse(menuItem[position].foodImage)
             Glide.with(requireCotext).load(menuImageUri).into(binnding.PopulearItemImageView)
         }

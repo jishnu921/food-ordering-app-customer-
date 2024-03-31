@@ -2,9 +2,9 @@ package com.example.foodorderingapp.datamodel
 
 import android.os.Parcel
 import android.os.Parcelable
-import java.util.ArrayList
+import java.io.Serializable
 
-class orderDetails ():Parcelable{
+class orderDetails ():Serializable{
     var userUid:String?=null
     var userName:String?=null
     var Address:String?=null
@@ -61,7 +61,7 @@ class orderDetails ():Parcelable{
         this.currentTime = time
     }
 
-    override fun writeToParcel(parcel: Parcel, flags: Int) {
+    fun writeToParcel(parcel: Parcel, flags: Int) {
         parcel.writeString(userUid)
         parcel.writeString(userName)
         parcel.writeString(Address)
@@ -73,7 +73,7 @@ class orderDetails ():Parcelable{
         parcel.writeLong(currentTime)
     }
 
-    override fun describeContents(): Int {
+    fun describeContents(): Int {
         return 0
     }
 
