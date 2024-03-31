@@ -1,31 +1,26 @@
 package com.example.foodorderingapp.fragments
 
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.fragment.app.Fragment
 import com.example.foodorderingapp.LoginPage
-import com.example.foodorderingapp.R
-import com.example.foodorderingapp.databinding.FragmentHomeBinding
 import com.example.foodorderingapp.databinding.FragmentUserBinding
 import com.example.foodorderingapp.datamodel.userdata
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
-import com.google.firebase.ktx.Firebase
 
 class userFragment : Fragment() {
     private lateinit var binding: FragmentUserBinding
     private var firebaseAuth: FirebaseAuth = FirebaseAuth.getInstance()
     private var databaseReference = FirebaseDatabase.getInstance()
+    private var count : Boolean = false
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -45,6 +40,8 @@ class userFragment : Fragment() {
 
         val firebaseAuth = FirebaseAuth.getInstance();
 
+        enableDisable(false)
+
         binding.logout.setOnClickListener(){
             firebaseAuth.signOut()
             startActivity(Intent(requireContext(),LoginPage::class.java))
@@ -53,13 +50,31 @@ class userFragment : Fragment() {
 
         binding.SaveInformation.setOnClickListener(){
             binding.apply {
-                val name = nameEditText.text.toString()
-                val address = addressEditText.text.toString()
-                val email = emailEditText.text.toString()
-                val phone = phoneEditText.text.toString()
+                if (count==false){
+                    SaveInformation.text = "SAVE INFORMATION"
+                    count = true
+                    enableDisable(true)
+                }else {
+                    enableDisable(false)
+                    SaveInformation.text = "Edit INFORMATION"
+                    count = false
+                    val name = nameEditText.text.toString()
+                    val address = addressEditText.text.toString()
+                    val email = emailEditText.text.toString()
+                    val phone = phoneEditText.text.toString()
 
-                updateUserData(name,address,email,phone)
+                    updateUserData(name, address, email, phone)
+                }
             }
+        }
+    }
+
+    private fun enableDisable(b: Boolean) {
+        binding.apply {
+            nameEditText.isEnabled = b
+            addressEditText.isEnabled = b
+            emailEditText.isEnabled = b
+            phoneEditText.isEnabled = b
         }
     }
 

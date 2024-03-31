@@ -155,7 +155,7 @@
         android:layout_margin="20dp"
         android:background="@drawable/rectanglebutton"
         android:fontFamily="@font/yeonsungregular"
-        android:text="Save Information"
+        android:text="Edit Information"
         android:textColor="@color/GreenButton"
         app:layout_constraintBottom_toTopOf="@+id/logout"
         tools:layout_editor_absoluteX="20dp" />
