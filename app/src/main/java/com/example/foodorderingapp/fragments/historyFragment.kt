@@ -1,5 +1,6 @@
 package com.example.foodorderingapp.fragments
 
+import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,7 +9,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
-import com.example.foodorderingapp.R
+import com.example.foodorderingapp.CurrentBuyDetails
 import com.example.foodorderingapp.adapters.historyAdapter
 import com.example.foodorderingapp.databinding.FragmentHistoryBinding
 import com.example.foodorderingapp.datamodel.orderDetails
@@ -41,7 +42,16 @@ class historyFragment : Fragment() {
         firebaseAuth = FirebaseAuth.getInstance()
         database = FirebaseDatabase.getInstance()
         retrieveBuyHistory()
+        binding.CurrentBuyCardView.setOnClickListener(){
+            seeCurrentBuy()
+        }
         return binding.root
+    }
+
+    private fun seeCurrentBuy() {
+        listOfOrderItem.firstOrNull()?.let { recentBuy ->
+            val intent = Intent(requireContext(),CurrentBuyDetails::class.java)
+        }
     }
 
     private fun retrieveBuyHistory() {
@@ -61,7 +71,7 @@ class historyFragment : Fragment() {
                 }
                 listOfOrderItem.reverse()
                 if (listOfOrderItem.isNotEmpty()){
-                    setDataInCUrrentBuy()
+                    setDataInCurrentBuy()
                 }
             }
 
@@ -72,7 +82,7 @@ class historyFragment : Fragment() {
         })
     }
 
-    private fun setDataInCUrrentBuy() {
+    private fun setDataInCurrentBuy() {
         binding.CurrentBuyCardView.visibility = View.VISIBLE
         val recentOrderItem = listOfOrderItem.firstOrNull()
         recentOrderItem?.let {
@@ -81,26 +91,32 @@ class historyFragment : Fragment() {
             val image = it.foodImage?.firstOrNull()?:""
             val uri = Uri.parse(image)
             Glide.with(requireContext()).load(uri).into(binding.currentBuyFoodImage)
+
+            //listOfOrderItem.reverse()
+            if (listOfOrderItem.isNotEmpty()){
+                setPreviousBuyRecyclerView()
+            }
         }
+    }
+
+    private fun setPreviousBuyRecyclerView() {
+        val oldBuyFoodName = mutableListOf<String>()
+        val oldBuyFoodPrice = mutableListOf<String>()
+        val oldBuyFoodImage = mutableListOf<String>()
+
+        for (i in 1 until listOfOrderItem.size){
+            listOfOrderItem[i].foodNames?.firstOrNull()?.let { oldBuyFoodName.add(it) }
+            listOfOrderItem[i].foodPrice?.firstOrNull()?.let { oldBuyFoodPrice.add(it) }
+            listOfOrderItem[i].foodImage?.firstOrNull()?.let { oldBuyFoodImage.add(it) }
+        }
+        val RecyclierView = binding.RecyclierHistoryFragment
+        RecyclierView.layoutManager = LinearLayoutManager(requireContext())
+        adapter = historyAdapter(oldBuyFoodName,oldBuyFoodPrice,oldBuyFoodImage,requireContext())
+        RecyclierView.adapter = adapter
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val PopularFoodName = listOf("burger", "sandwich", "fry", "cake")
-        val PopulearFoodPrice = listOf("Rs110", "Rs60", "Rs65", "Rs60")
-        val PopulearFoodImage =
-            listOf(R.drawable.burger, R.drawable.sandwich, R.drawable.frys, R.drawable.cake)
-        adapter = historyAdapter(
-            PopularFoodName as MutableList<String>,
-            PopulearFoodPrice as MutableList<String>,
-            PopulearFoodImage as MutableList<Int>
-        )
-        binding.RecyclierHistoryFragment.layoutManager = LinearLayoutManager(requireContext())
-        binding.RecyclierHistoryFragment.adapter = adapter
-
-        binding.currentBuyFoodImage.setImageResource(R.drawable.burger)
-        binding.CurrentFoodPrice.text = "Rs100"
-        binding.CurrentBuyFoodName.text = "Burger"
     }
 
     companion object {
