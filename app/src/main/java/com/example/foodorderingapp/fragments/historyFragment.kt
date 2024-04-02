@@ -6,10 +6,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.example.foodorderingapp.CurrentBuyDetails
+import com.example.foodorderingapp.R
 import com.example.foodorderingapp.adapters.historyAdapter
 import com.example.foodorderingapp.databinding.FragmentHistoryBinding
 import com.example.foodorderingapp.datamodel.orderDetails
@@ -57,6 +59,9 @@ class historyFragment : Fragment() {
         val itemPuchKey = listOfOrderItem[0].itemPushKey
         val completeOrderReference = database.reference.child("CompletedOrder").child(itemPuchKey!!)
         completeOrderReference.child("orderRecived").setValue(true)
+        Toast.makeText(requireContext(),"thx for ordering",Toast.LENGTH_SHORT).show()
+        binding.RecivedButton.visibility = View.INVISIBLE
+        binding.OrderStatusTextView.setBackgroundResource(R.drawable.joygif)
     }
 
     private fun seeCurrentBuy() {
@@ -108,7 +113,6 @@ class historyFragment : Fragment() {
             val isOrderAccepted = listOfOrderItem[0].orderAccepted
             if (isOrderAccepted){
                 binding.OrderStatusTextView.visibility = View.VISIBLE
-                binding.OrderStatusTextView.text = "order accepted"
                 binding.RecivedButton.visibility = View.VISIBLE
             }
 

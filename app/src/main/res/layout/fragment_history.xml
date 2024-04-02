@@ -65,17 +65,23 @@
                 app:layout_constraintStart_toEndOf="@+id/currentBuyFoodImage"
                 app:layout_constraintTop_toBottomOf="@+id/CurrentBuyFoodName" />
 
-            <TextView
+            <androidx.cardview.widget.CardView
+                android:layout_width="90dp"
+                android:layout_height="60dp"
+                app:cardCornerRadius="10dp">
+
+            </androidx.cardview.widget.CardView>
+            <pl.droidsonroids.gif.GifImageView
+                android:visibility="visible"
                 android:id="@+id/OrderStatusTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="90dp"
+                android:layout_height="60dp"
                 android:layout_marginEnd="10dp"
-                android:fontFamily="@font/yeonsungregular"
-                android:text="order accepted"
-                android:textSize="15dp"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/cookgif"
                 app:layout_constraintBottom_toTopOf="@+id/RecivedButton"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"/>
 
             <TextView
                 android:id="@+id/RecivedButton"
@@ -90,6 +96,7 @@
                 android:visibility="invisible"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="@+id/OrderStatusTextView"
+                app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="@+id/OrderStatusTextView"
                 app:layout_constraintTop_toBottomOf="@+id/OrderStatusTextView" />
         </androidx.constraintlayout.widget.ConstraintLayout>
