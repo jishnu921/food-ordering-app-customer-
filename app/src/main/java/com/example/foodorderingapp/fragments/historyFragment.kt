@@ -41,11 +41,22 @@ class historyFragment : Fragment() {
         binding = FragmentHistoryBinding.inflate(inflater, container, false)
         firebaseAuth = FirebaseAuth.getInstance()
         database = FirebaseDatabase.getInstance()
+
         retrieveBuyHistory()
+
         binding.CurrentBuyCardView.setOnClickListener(){
             seeCurrentBuy()
         }
+        binding.RecivedButton.setOnClickListener{
+            updateOrderStatus()
+        }
         return binding.root
+    }
+
+    private fun updateOrderStatus() {
+        val itemPuchKey = listOfOrderItem[0].itemPushKey
+        val completeOrderReference = database.reference.child("CompletedOrder").child(itemPuchKey!!)
+        completeOrderReference.child("orderRecived").setValue(true)
     }
 
     private fun seeCurrentBuy() {
@@ -93,6 +104,13 @@ class historyFragment : Fragment() {
             val image = it.foodImage?.firstOrNull()?:""
             val uri = Uri.parse(image)
             Glide.with(requireContext()).load(uri).into(binding.currentBuyFoodImage)
+
+            val isOrderAccepted = listOfOrderItem[0].orderAccepted
+            if (isOrderAccepted){
+                binding.OrderStatusTextView.visibility = View.VISIBLE
+                binding.OrderStatusTextView.text = "order accepted"
+                binding.RecivedButton.visibility = View.VISIBLE
+            }
 
             //listOfOrderItem.reverse()
             if (listOfOrderItem.isNotEmpty()){

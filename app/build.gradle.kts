@@ -58,4 +58,6 @@ dependencies {
     implementation ("com.github.denzcoskun:ImageSlideshow:0.1.2")
     //glide
     implementation ("com.github.bumptech.glide:glide:4.16.0")
+    //adding gif image
+    implementation ("pl.droidsonroids.gif:android-gif-drawable:1.2.28")
 }
