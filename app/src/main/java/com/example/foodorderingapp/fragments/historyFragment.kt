@@ -57,8 +57,12 @@ class historyFragment : Fragment() {
 
     private fun updateOrderStatus() {
         val itemPuchKey = listOfOrderItem[0].itemPushKey
+        val UserOrderHistoryReference = database.reference.child("Customer").child(userId).child("Buy History").child(itemPuchKey!!)
+        UserOrderHistoryReference.child("orderRecived").setValue(true)
+
         val completeOrderReference = database.reference.child("CompletedOrder").child(itemPuchKey!!)
         completeOrderReference.child("orderRecived").setValue(true)
+
         Toast.makeText(requireContext(),"thx for ordering",Toast.LENGTH_SHORT).show()
         binding.RecivedButton.visibility = View.INVISIBLE
         binding.OrderStatusTextView.setBackgroundResource(R.drawable.joygif)
@@ -111,8 +115,13 @@ class historyFragment : Fragment() {
             Glide.with(requireContext()).load(uri).into(binding.currentBuyFoodImage)
 
             val isOrderAccepted = listOfOrderItem[0].orderAccepted
-            if (isOrderAccepted){
-                binding.OrderStatusTextView.visibility = View.VISIBLE
+            val isOrderRecived = listOfOrderItem[0].orderRecived
+            if (isOrderRecived){
+                binding.cardView.visibility = View.VISIBLE
+                binding.RecivedButton.visibility = View.INVISIBLE
+                binding.OrderStatusTextView.setBackgroundResource(R.drawable.joygif)
+            }else if (isOrderAccepted){
+                binding.cardView.visibility = View.VISIBLE
                 binding.RecivedButton.visibility = View.VISIBLE
             }
 
