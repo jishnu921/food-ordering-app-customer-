@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">foodOrderingApp</string>
+    <string name="app_name">Let\'s Eat</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="default_web_client_id">449067757985-pv8n4ms6k3b06pgqaf0kgt7pb1u3oitv.apps.googleusercontent.com</string>
