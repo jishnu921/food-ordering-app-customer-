@@ -1,21 +1,20 @@
 package com.example.foodorderingapp.fragments
 
-import android.health.connect.datatypes.units.Length
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.denzcoskun.imageslider.constants.ScaleTypes
 import com.denzcoskun.imageslider.interfaces.ItemClickListener
 import com.denzcoskun.imageslider.models.SlideModel
 import com.example.foodorderingapp.R
 import com.example.foodorderingapp.adapters.populearAdapter
-import com.example.foodorderingapp.databinding.FragmentCartfragmentBinding
 import com.example.foodorderingapp.databinding.FragmentHomeBinding
 import com.example.foodorderingapp.datamodel.menuitemModel
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
@@ -27,6 +26,7 @@ class homeFragment : Fragment() {
     private lateinit var binding:FragmentHomeBinding
     private lateinit var database: FirebaseDatabase
     private lateinit var menuItems:MutableList<menuitemModel>
+    private lateinit var firebaseAuth: FirebaseAuth
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,7 +38,7 @@ class homeFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         binding = FragmentHomeBinding.inflate(inflater,container,false)
-
+        firebaseAuth = FirebaseAuth.getInstance()
         retrieveData()
         return binding.root
 
@@ -105,7 +105,7 @@ class homeFragment : Fragment() {
     }
 
     private fun setPopulearItemAdapter(subsetMenuItems: List<menuitemModel>) {
-        val adapter = populearAdapter(subsetMenuItems,requireContext())
+        val adapter = populearAdapter(subsetMenuItems,requireContext(),firebaseAuth)
         binding.RecyclerViewHomeFragment.layoutManager = LinearLayoutManager(requireContext())
         binding.RecyclerViewHomeFragment.adapter = adapter
     }

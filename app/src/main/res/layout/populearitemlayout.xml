@@ -60,7 +60,7 @@
                 app:layout_constraintVertical_bias="0.395" />
 
             <TextView
-                android:id="@+id/Quanity"
+                android:id="@+id/AddToCart"
                 android:layout_width="90dp"
                 android:layout_height="30dp"
                 android:background="@drawable/addtocart"

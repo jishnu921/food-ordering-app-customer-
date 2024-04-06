@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.foodorderingapp.adapters.populearAdapter
 import com.example.foodorderingapp.databinding.FragmentSearchBinding
 import com.example.foodorderingapp.datamodel.menuitemModel
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
@@ -21,6 +22,7 @@ class searchFragment : Fragment() {
 
     private lateinit var database: FirebaseDatabase
     private lateinit var adapter : populearAdapter
+    private lateinit var firebaseAuth: FirebaseAuth
     private val originalMenuItem = mutableListOf<menuitemModel>()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,6 +34,7 @@ class searchFragment : Fragment() {
     ): View? {
         binding = FragmentSearchBinding.inflate(inflater,container,false)
 
+        firebaseAuth = FirebaseAuth.getInstance()
         //retrieve menu item
         retrieveMenuItem()
         searnchPanel()
@@ -67,7 +70,7 @@ class searchFragment : Fragment() {
     }
 
     private fun setAdapter(filtermenuItem: List<menuitemModel>) {
-        adapter = populearAdapter(filtermenuItem,requireContext())
+        adapter = populearAdapter(filtermenuItem,requireContext(),firebaseAuth)
         binding.reyclerViewSearchFragment.layoutManager = LinearLayoutManager(requireContext())
         binding.reyclerViewSearchFragment.adapter = adapter
     }
